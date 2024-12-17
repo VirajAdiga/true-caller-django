@@ -1,6 +1,8 @@
 venv
-.env
+.git
+.env.example
 .idea
 __pycache__/
 debug.log
+README.md
 .pytest_cache/
