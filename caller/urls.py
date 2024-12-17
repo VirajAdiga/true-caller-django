@@ -3,7 +3,7 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-from .views import RegisterView, ContactListView, ContactDetailView, SpamReportView, SearchView, SearchByPhoneNumberView, LogoutView
+from .views import RegisterView, ContactListView, ContactDetailView, SpamReportView, SearchView, SearchByPhoneNumberView, LogoutView, DetailedView
 
 urlpatterns = [
 
@@ -23,4 +23,5 @@ urlpatterns = [
     # Search
     path('search/', SearchView.as_view(), name='search'),
     path('search-by-phone/', SearchByPhoneNumberView.as_view(), name='search-by-phone'),
+    path('details/<str:phone_number>/', DetailedView.as_view(), name='detailed-view'),
 ]

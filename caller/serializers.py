@@ -44,8 +44,21 @@ class SpamReportSerializer(serializers.ModelSerializer):
 class SearchResultSerializer(serializers.Serializer):
     name = serializers.CharField()
     phone_number = serializers.CharField()
-    email = serializers.EmailField(required=False)
+    spam_likelihood = serializers.IntegerField()
+
+
+class DetailedResultSerializer(serializers.Serializer):
+    name = serializers.CharField()
+    phone_number = serializers.CharField()
     spam_likelihood = serializers.SerializerMethodField()
+    email = serializers.SerializerMethodField()
 
     def get_spam_likelihood(self, obj):
         return SpamReport.objects.filter(phone_number=obj['phone_number']).count()
+
+    def get_email(self, obj):
+        request = self.context.get('request')
+        if isinstance(obj, User):
+            if Contact.objects.filter(user=obj, phone_number=request.user.phone_number).exists():
+                return obj.email
+        return None
