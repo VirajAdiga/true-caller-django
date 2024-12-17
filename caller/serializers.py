@@ -54,7 +54,7 @@ class DetailedResultSerializer(serializers.Serializer):
     email = serializers.SerializerMethodField()
 
     def get_spam_likelihood(self, obj):
-        return SpamReport.objects.filter(phone_number=obj['phone_number']).count()
+        return SpamReport.objects.filter(phone_number=obj.phone_number).count()
 
     def get_email(self, obj):
         request = self.context.get('request')
